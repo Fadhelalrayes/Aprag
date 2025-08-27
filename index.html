@@ -1,344 +1,364 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حظك اليوم - طالع الأبراج</title>
-    <style>
-        :root {
-            --primary: #8a2be2;
-            --secondary: #9370db;
-            --accent: #ff69b4;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --success: #20c997;
-            --background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-        }
-        
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background: var(--background);
-            color: var(--light);
-            min-height: 100vh;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            animation: fadeIn 1s ease-out;
-        }
-        
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, var(--accent), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            margin-bottom: 30px;
-        }
-        
-        .date-display {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px 20px;
-            border-radius: 50px;
-            display: inline-block;
-            margin-bottom: 20px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .birthday-selector {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 30px;
-            border-radius: 20px;
-            margin-bottom: 40px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .birthday-selector h2 {
-            margin-bottom: 20px;
-            color: var(--secondary);
-        }
-        
-        input[type="date"] {
-            background: rgba(0, 0, 0, 0.2);
-            border: 2px solid var(--secondary);
-            padding: 15px;
-            border-radius: 10px;
-            color: white;
-            font-size: 1.1rem;
-            width: 100%;
-            max-width: 300px;
-            margin-bottom: 20px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-        
-        input[type="date"]:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
-        }
-        
-        .btn {
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        .horoscope-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .horoscope-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .horoscope-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-        }
-        
-        .horoscope-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--secondary);
-        }
-        
-        .horoscope-card p {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            min-height: 120px;
-        }
-        
-        .zodiac-sign {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-        
-        .result-container {
-            display: none;
-            animation: fadeIn 1s ease-out;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 60px;
-            padding: 20px;
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .horoscope-container {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>أبراج اليوم • صفحة احترافية</title>
+  <meta name="description" content="صفحة أبراج عربية أنيقة: طالعك اليومي والشهري والسنوي، مع شبكة لكل الأبراج تتجدد يوميًا. اختر تاريخ ميلادك واضغط زر اقرأ طالعك." />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b1020;
+      --fg: #eaf2ff;
+      --muted: #a8b3c7;
+      --glass: rgba(255,255,255,0.08);
+      --glass-strong: rgba(255,255,255,0.12);
+      --accent: #7bd7ff;
+      --accent-2: #a78bfa; /* لِمسات بنفسجية */
+      --ok: #34d399;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --card-radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0; background:
+        radial-gradient(1200px 800px at 85% -10%, #222d57 10%, transparent 60%),
+        radial-gradient(900px 700px at -10% 20%, #1a2a4a 10%, transparent 60%),
+        linear-gradient(180deg, #0a0f1e, #0b1020);
+      color:var(--fg); font-family:"Cairo", system-ui, sans-serif;
+      letter-spacing:.1px;
+    }
+    header{
+      position:sticky; top:0; z-index:20; backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(11,16,32,.8), rgba(11,16,32,.4));
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .wrap{max-width:1200px; margin:0 auto; padding:20px;}
+    .hero{
+      display:flex; gap:18px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+    }
+    .brand{
+      display:flex; align-items:center; gap:14px;
+    }
+    .logo{
+      width:56px; height:56px; border-radius:16px; background: conic-gradient(from 20deg, #7bd7ff, #a78bfa, #22d3ee, #7bd7ff);
+      box-shadow: var(--shadow); position:relative; overflow:hidden;
+    }
+    .logo::after{content:"✦"; position:absolute; inset:0; display:grid; place-items:center; color:#0b1020; font-size:28px; font-weight:800;}
+    h1{margin:0; font-size:28px}
+    .muted{color:var(--muted); font-weight:400}.controls{
+  display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+  background:var(--glass); padding:10px 12px; border-radius:16px; border:1px solid rgba(255,255,255,.08);
+}
+input[type="date"], select{
+  background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+  color:var(--fg); padding:10px 12px; border-radius:12px; outline:none;
+}
+button{
+  background: linear-gradient(135deg, var(--accent), var(--accent-2)); color:#0b1020; font-weight:800;
+  border:0; padding:10px 16px; border-radius:14px; cursor:pointer; box-shadow: var(--shadow);
+  transition: transform .15s ease, filter .15s ease;
+}
+button:hover{ transform: translateY(-1px); filter: brightness(1.05); }
+button.secondary{ background:rgba(255,255,255,.08); color:var(--fg); font-weight:600; border:1px solid rgba(255,255,255,.12); box-shadow:none; }
+
+/* تبويبات */
+.tabs{ display:flex; gap:6px; background:var(--glass); padding:6px; border-radius:14px; border:1px solid rgba(255,255,255,.08); }
+.tab{ padding:8px 14px; border-radius:10px; cursor:pointer; color:var(--muted); font-weight:700; }
+.tab.active{ color:#0b1020; background:linear-gradient(135deg, var(--accent), var(--accent-2)); }
+
+/* بطاقة رئيسية */
+.panel{
+  margin-top:18px; background:var(--glass); border:1px solid rgba(255,255,255,.08); border-radius:var(--card-radius); padding:18px; box-shadow: var(--shadow);
+}
+.panel h2{margin:0 0 10px 0; font-size:22px}
+.grid{
+  display:grid; gap:14px; grid-template-columns: repeat(12, 1fr);
+}
+.col-12{grid-column: span 12}
+.col-8{grid-column: span 8}
+.col-4{grid-column: span 4}
+.col-6{grid-column: span 6}
+@media (max-width: 1000px){ .col-8{grid-column: span 12} .col-4{grid-column: span 12} }
+@media (max-width: 720px){ .col-6{grid-column: span 12} }
+
+/* بطاقات الأبراج */
+.z-card{
+  background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+  border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:14px; position:relative; overflow:hidden;
+  transition: transform .12s ease, box-shadow .12s ease; cursor:pointer; min-height:120px;
+}
+.z-card:hover{ transform: translateY(-3px); box-shadow: 0 12px 26px rgba(0,0,0,.35)}
+.z-head{ display:flex; align-items:center; gap:12px; }
+.z-ico{ width:42px; height:42px; display:grid; place-items:center; border-radius:12px; background: rgba(255,255,255,.12); font-size:22px}
+.z-name{ font-weight:800; }
+.z-snippet{ color:var(--muted); margin-top:8px; font-size:14px; min-height:40px }
+.tag{ font-size:12px; padding:4px 8px; border-radius:999px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.1); color:var(--fg); }
+
+/* نتائج الطالع */
+.reading{
+  display:grid; gap:12px; grid-template-columns: repeat(12, 1fr);
+}
+.r-card{ grid-column: span 6; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:14px; }
+.r-card h3{ margin:0 0 8px 0; font-size:18px }
+.stars{ letter-spacing:2px; font-size:18px }
+.meter{ height:8px; background:rgba(255,255,255,.1); border-radius:999px; overflow:hidden; }
+.meter > i{ display:block; height:100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); width:50% }
+
+.big-sign{
+  display:flex; align-items:center; gap:14px; padding:14px; border-radius:16px; background: linear-gradient(135deg, rgba(123,215,255,.16), rgba(167,139,250,.16)); border:1px solid rgba(255,255,255,.14);
+}
+.big-ico{ width:64px; height:64px; display:grid; place-items:center; border-radius:16px; font-size:28px; background:rgba(255,255,255,.14) }
+.big-name{ font-weight:900; font-size:22px }
+
+.footer{ color:var(--muted); text-align:center; padding:40px 0; }
+.toast{ position:fixed; bottom:16px; right:16px; background:#111827; color:#fff; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.12); box-shadow: var(--shadow); opacity:0; transform: translateY(10px); transition:.2s; }
+.toast.show{ opacity:1; transform: translateY(0); }
+
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>حظك اليوم</h1>
-            <p class="subtitle">اكتشف ما يخبئه لك الطالع اليوم وغداً</p>
-            <div class="date-display" id="current-date">الاثنين، ١ يناير ٢٠٢٤</div>
-        </header>
-        
-        <section class="birthday-selector">
-            <h2>اختر تاريخ ميلادك</h2>
-            <input type="date" id="birthday" />
-            <button class="btn" onclick="getHoroscope()">اكتشف طالعك</button>
-        </section>
-        
-        <section class="result-container" id="result-container">
-            <div class="horoscope-container">
-                <div class="horoscope-card">
-                    <div class="zodiac-sign" id="zodiac-sign">♒</div>
-                    <h3>حظك اليوم</h3>
-                    <p id="daily-horoscope">سيحمل لك اليوم مفاجأة سعيدة في العمل، حيث ستحصل على تقدير لجهودك التي بذلتها خلال الفترة الماضية.</p>
-                </div>
-                
-                <div class="horoscope-card">
-                    <h3>حظك الشهري</h3>
-                    <p id="monthly-horoscope">هذا الشهر سيكون مليئًا بالأحداث الإيجابية على الصعيد العاطفي. قد تقابل شخصًا مميزًا سيغير مجرى حياتك.</p>
-                </div>
-                
-                <div class="horoscope-card">
-                    <h3>حظك السنوي</h3>
-                    <p id="yearly-horoscope">العام الحالي يحمل لك فرصًا كبيرة للنمو المهني والمالي. استثمر وقتك وجهدك في مشاريع جديدة وطويلة الأمد.</p>
-                </div>
-            </div>
-        </section>
+  <header>
+    <div class="wrap hero">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>أبراج اليوم <span class="muted">— طالع أنيق ودقيق*</span></h1>
+          <div class="muted" id="todayLabel"></div>
+        </div>
+      </div>
+      <div class="controls" role="group" aria-label="اختيار تاريخ الميلاد وقراءة الطالع">
+        <input id="birth" type="date" aria-label="تاريخ الميلاد" />
+        <button id="readBtn">اقرأ طالعك</button>
+        <button id="saveBtn" class="secondary" title="حفظ تاريخ الميلاد">حفظ</button>
+        <nav class="tabs" aria-label="النمط">
+          <div class="tab active" data-mode="daily">اليومي</div>
+          <div class="tab" data-mode="monthly">الشهري</div>
+          <div class="tab" data-mode="yearly">السنوي</div>
+        </nav>
+      </div>
     </div>
-    
-    <footer>
-        <p>© 2024 حظك اليوم | جميع الحقوق محفوظة</p>
-    </footer>
+  </header>  <main class="wrap">
+    <section class="panel grid">
+      <div class="col-12">
+        <h2>طالعك الشخصي</h2>
+        <div class="big-sign" id="userSignBox" hidden>
+          <div class="big-ico" id="userSignIco">♈</div>
+          <div>
+            <div class="big-name" id="userSignName">الحمل</div>
+            <div class="muted" id="userSignRange">21 مارس — 19 أبريل</div>
+          </div>
+          <div style="margin-inline-start:auto; display:flex; gap:10px; align-items:center">
+            <span class="tag" id="luckyColor">لون اليوم: —</span>
+            <span class="tag" id="luckyNum">رقم الحظ: —</span>
+          </div>
+        </div>
+        <div class="reading" id="readingCards" hidden>
+          <!-- تُحقن البطاقات ديناميكيًا -->
+        </div>
+      </div>
+    </section><section class="panel">
+  <h2>جميع الأبراج — تتجدد يوميًا</h2>
+  <div class="grid" id="zodiacGrid">
+    <!-- بطاقات الأبراج تُبنى برمجيًا -->
+  </div>
+</section>
 
-    <script>
-        // تحديث التاريخ الحالي
-        function updateDate() {
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const today = new Date();
-            const dateString = today.toLocaleDateString('ar-EG', options);
-            document.getElementById('current-date').textContent = dateString;
-        }
-        
-        // تحديد البرج من تاريخ الميلاد
-        function getZodiacSign(birthday) {
-            const date = new Date(birthday);
-            const day = date.getDate();
-            const month = date.getMonth() + 1;
-            
-            if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return "الحمل";
-            if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return "الثور";
-            if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return "الجوزاء";
-            if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return "السرطان";
-            if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return "الأسد";
-            if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return "العذراء";
-            if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return "الميزان";
-            if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return "العقرب";
-            if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return "القوس";
-            if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) return "الجدي";
-            if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return "الدلو";
-            return "الحوت";
-        }
-        
-        // الحصول على رمز البرج
-        function getZodiacSymbol(sign) {
-            const symbols = {
-                "الحمل": "♈",
-                "الثور": "♉",
-                "الجوزاء": "♊",
-                "السرطان": "♋",
-                "الأسد": "♌",
-                "العذراء": "♍",
-                "الميزان": "♎",
-                "العقرب": "♏",
-                "القوس": "♐",
-                "الجدي": "♑",
-                "الدلو": "♒",
-                "الحوت": "♓"
-            };
-            return symbols[sign] || "♒";
-        }
-        
-        // إنشاء نصوص عشوائية للطالع (يمكن استبدالها بقاعدة بيانات حقيقية)
-        function generateHoroscope(sign, type) {
-            const dailyTopics = [
-                `اليوم هو يوم رائع لـ${sign} لاتخاذ قرارات مهمة تتعلق بحياتك المهنية.`,
-                `يشير اليوم إلى أن ${sign} سيكون محط أنظار الآخرين، فاستعد لاستقبال مجاملات غير متوقعة.`,
-                `حان الوقت لـ${sign} لبدء مشروع جديد كان يخطط له منذ فترة طويلة. النتائج ستكون مبهرة.`,
-                `اليوم يحمل مفاجآت سعيدة لـ${sign} على الصعيد العاطفي، قد تقابل شخصًا مميزًا.`,
-                `نصيحة اليوم لـ${sign}: تجنب اتخاذ قرارات مالية كبيرة دون التفكير مليًا.`
-            ];
-            
-            const monthlyTopics = [
-                `هذا الشهر سيكون مميزًا لـ${sign} على الصعيد المهني، حيث ستتاح فرص جديدة للتقدم.`,
-                `يشهد ${sign} تغييرات إيجابية في العلاقات الشخصية هذا الشهر، تواصل مع المقربين منك.`,
-                `الشهر الحالي يحمل تطورات مالية إيجابية لـ${sign}، قد تحصل على علاوة أو ترقية.`,
-                `يركز هذا الشهر على النمو الداخلي لـ${sign}، خصص وقتًا للتفكير والتخطيط للمستقبل.`,
-                `شهر مليء بالسعادة والمرح لـ${sign}، مع العديد من المناسبات الاجتماعية المميزة.`
-            ];
-            
-            const yearlyTopics = [
-                `العام الحالي هو عام التغييرات الكبرى لـ${sign}، حيث سيشهد تحولات إيجابية في مختلف مجالات الحياة.`,
-                `يركز عام ${new Date().getFullYear()} على النمو الروحي والمهني لـ${sign}، مع فرص للسفر والتعلم.`,
-                `هذا العام يحمل أخبارًا سعيدة لـ${sign} على الصعيد العاطفي، مع احتمالية لقاء شريك الحياة.`,
-                `عام النجاحات المالية لـ${sign}، حيث ستحقق أهدافك المالية التي طالما حلمت بها.`,
-                `يشهد ${sign} تطورات مهنية كبيرة هذا العام، مع فرص للانتقال إلى مناصب أعلى وتحقيق الذات.`
-            ];
-            
-            const topics = type === 'daily' ? dailyTopics : 
-                          type === 'monthly' ? monthlyTopics : yearlyTopics;
-            
-            return topics[Math.floor(Math.random() * topics.length)];
-        }
-        
-        // الحصول على الطالع وعرض النتائج
-        function getHoroscope() {
-            const birthday = document.getElementById('birthday').value;
-            
-            if (!birthday) {
-                alert('الرجاء اختيار تاريخ ميلادك أولاً');
-                return;
-            }
-            
-            const zodiacSign = getZodiacSign(birthday);
-            const zodiacSymbol = getZodiacSymbol(zodiacSign);
-            
-            document.getElementById('zodiac-sign').textContent = zodiacSymbol;
-            document.getElementById('daily-horoscope').textContent = generateHoroscope(zodiacSign, 'daily');
-            document.getElementById('monthly-horoscope').textContent = generateHoroscope(zodiacSign, 'monthly');
-            document.getElementById('yearly-horoscope').textContent = generateHoroscope(zodiacSign, 'yearly');
-            
-            document.getElementById('result-container').style.display = 'block';
-            
-            // scroll to results
-            document.getElementById('result-container').scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        // تهيئة الصفحة عند التحميل
-        window.onload = function() {
-            updateDate();
-        };
-    </script>
-</body>
+<section class="footer">
+  <small>* تنويه: هذه الصفحة لأغراض ترفيهية فقط وليست نصيحة مهنية.</small>
+</section>
+
+  </main>  <div class="toast" id="toast">تم الحفظ ✅</div>  <script>
+    // ===== أدوات عامة =====
+    const $ = s => document.querySelector(s);
+    const $$ = s => Array.from(document.querySelectorAll(s));
+    const today = new Date();
+    const fmt = new Intl.DateTimeFormat('ar', { dateStyle: 'full' });
+    $('#todayLabel').textContent = `اليوم: ${fmt.format(today)}`;
+
+    function showToast(msg){
+      const t = $('#toast');
+      t.textContent = msg; t.classList.add('show');
+      setTimeout(()=> t.classList.remove('show'), 1600);
+    }
+
+    // ===== بيانات الأبراج =====
+    const SIGNS = [
+      { key:'aries', name:'الحمل', symbol:'♈', range:[{m:3,d:21},{m:4,d:19}] },
+      { key:'taurus', name:'الثور', symbol:'♉', range:[{m:4,d:20},{m:5,d:20}] },
+      { key:'gemini', name:'الجوزاء', symbol:'♊', range:[{m:5,d:21},{m:6,d:21}] },
+      { key:'cancer', name:'السرطان', symbol:'♋', range:[{m:6,d:22},{m:7,d:22}] },
+      { key:'leo', name:'الأسد', symbol:'♌', range:[{m:7,d:23},{m:8,d:22}] },
+      { key:'virgo', name:'العذراء', symbol:'♍', range:[{m:8,d:23},{m:9,d:22}] },
+      { key:'libra', name:'الميزان', symbol:'♎', range:[{m:9,d:23},{m:10,d:23}] },
+      { key:'scorpio', name:'العقرب', symbol:'♏', range:[{m:10,d:24},{m:11,d:21}] },
+      { key:'sagittarius', name:'القوس', symbol:'♐', range:[{m:11,d:22},{m:12,d:21}] },
+      { key:'capricorn', name:'الجدي', symbol:'♑', range:[{m:12,d:22},{m:1,d:19}] },
+      { key:'aquarius', name:'الدلو', symbol:'♒', range:[{m:1,d:20},{m:2,d:18}] },
+      { key:'pisces', name:'الحوت', symbol:'♓', range:[{m:2,d:19},{m:3,d:20}] },
+    ];
+
+    function inRange(date, r){
+      const m = date.getMonth()+1, d = date.getDate();
+      const [a,b] = r;
+      const afterStart = (m>a.m) || (m===a.m && d>=a.d);
+      const beforeEnd  = (m<b.m) || (m===b.m && d<=b.d);
+      if(a.m<=b.m) return afterStart && beforeEnd; // داخل نفس السنة
+      // ممتد عبر نهاية السنة (مثل الجدي)
+      return afterStart || beforeEnd;
+    }
+
+    function signFromDate(date){
+      return SIGNS.find(s => inRange(date, s.range));
+    }
+
+    function formatRange(r){
+      const months = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+      const a = `${r[0].d} ${months[r[0].m-1]}`; const b = `${r[1].d} ${months[r[1].m-1]}`;
+      return `${a} — ${b}`;
+    }
+
+    // ===== مُوّلِد عشوائي ثابت (بذرة) =====
+    // xmur3 -> mulberry32 للحصول على نتائج ثابتة لليوم/الشهر/السنة
+    function xmur3(str){
+      let h = 1779033703 ^ str.length; for(let i=0;i<str.length;i++){
+        h = Math.imul(h ^ str.charCodeAt(i), 3432918353);
+        h = h<<13 | h>>>19;
+      } return function(){ h = Math.imul(h ^ (h>>>16), 2246822507); h = Math.imul(h ^ (h>>>13), 3266489909); return (h ^= h>>>16)>>>0; }
+    }
+    function mulberry32(a){ return function(){ let t = a += 0x6D2B79F5; t = Math.imul(t ^ t>>>15, t | 1); t ^= t + Math.imul(t ^ t>>>7, t | 61); return ((t ^ t>>>14)>>>0) / 4294967296; } }
+
+    function rngFor(key){ const seed = xmur3(key)(); return mulberry32(seed); }
+    function pick(rng, arr){ return arr[Math.floor(rng()*arr.length)] }
+    function rangeInt(rng, a, b){ return Math.floor(rng()*(b-a+1))+a }
+
+    // ===== قوالب عربيّة للأحكام =====
+    const POS = ["فرص واعدة", "تعافٍ ملحوظ", "انسجام لطيف", "دفعة حماس", "تركيز عالٍ", "تباشير مريحة"]; 
+    const VERBS = ["تلتقط", "توازن", "تنجز", "تنسّق", "تستعيد", "تتقدّم", "تغامر", "تُنجز"]; 
+    const DOMS = ["العمل", "المال", "العاطفة", "الصحة", "التعلّم", "العائلة", "الأصدقاء"]; 
+    const TIPS = [
+      "قلّل المشتتات ونظّم أولوياتك.",
+      "استمع لحدسك لكن ثبّت خطتك.",
+      "كلمة لطيفة تغيّر المزاج.",
+      "اقطع شوطًا قصيرًا.. لكنه ثابت.",
+      "اترك مساحة للصدف الجميلة.",
+      "الراحة جزء من الإنجاز.",
+    ];
+    const COLORS = ["فيروزي","موف","أزرق ملكي","زمردي","عنّابي","ذهبي","فضّي","نيلي","وردي باستيلي"];
+
+    function buildReading(signKey, mode){
+      // mode: daily | monthly | yearly
+      const date = new Date();
+      const token = mode==='daily'
+        ? date.toISOString().slice(0,10) // YYYY-MM-DD
+        : mode==='monthly' ? `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}`
+        : String(date.getFullYear());
+      const rng = rngFor(`${signKey}|${mode}|${token}`);
+      const score = {
+        work: rangeInt(rng,2,5), love: rangeInt(rng,2,5), health: rangeInt(rng,2,5), money: rangeInt(rng,2,5)
+      };
+      const summary = `يومك يحمل ${pick(rng, POS)}؛ ${pick(rng, VERBS)} إيقاع ${pick(rng, DOMS)} و${pick(rng, VERBS)} هدفك بخطوات هادئة. نصيحة: ${pick(rng, TIPS)}`;
+      const luckyColor = pick(rng, COLORS);
+      const luckyNumber = rangeInt(rng, 1, 99);
+      return { summary, score, luckyColor, luckyNumber };
+    }
+
+    function stars(n){ return '★'.repeat(n) + '☆'.repeat(5-n) }
+
+    function makeCard(title, text, score){
+      const w = score ? Math.round(score/5*100) : 0;
+      return `
+      <div class="r-card">
+        <h3>${title}</h3>
+        <p class="muted" style="margin:6px 0 10px 0">${text}</p>
+        ${score ? `<div class="stars" aria-label="${score} من 5">${stars(score)}</div>
+        <div class="meter" aria-hidden="true"><i style="width:${w}%;"></i></div>` : ''}
+      </div>`
+    }
+
+    // ===== واجهة المستخدم الشخصية =====
+    let currentMode = 'daily';
+
+    function renderUser(sign){
+      const box = $('#userSignBox');
+      $('#userSignIco').textContent = sign.symbol;
+      $('#userSignName').textContent = sign.name;
+      $('#userSignRange').textContent = formatRange(sign.range);
+      const data = buildReading(sign.key, currentMode);
+      $('#luckyColor').textContent = `لون ${currentMode==='daily'?'اليوم': currentMode==='monthly'?'الشهر':'السنة'}: ${data.luckyColor}`;
+      $('#luckyNum').textContent = `رقم الحظ: ${data.luckyNumber}`;
+      box.hidden = false;
+
+      const read = $('#readingCards');
+      read.hidden = false;
+      read.innerHTML = '';
+      // ملخص + أربع مجالات
+      read.insertAdjacentHTML('beforeend', makeCard('توقع عام', data.summary));
+      read.insertAdjacentHTML('beforeend', makeCard('العمل', 'طاقة عملية قابلة للاستثمار اليوم.', data.score.work));
+      read.insertAdjacentHTML('beforeend', makeCard('العاطفة', 'قلبك مستعد للتفاهم واللطف.', data.score.love));
+      read.insertAdjacentHTML('beforeend', makeCard('الصحة', 'هدوء، ماء كافٍ، ونوم منتظم.', data.score.health));
+      read.insertAdjacentHTML('beforeend', makeCard('المال', 'انضباط بسيط يصنع فرقًا كبيرًا.', data.score.money));
+    }
+
+    // ===== شبكة كل الأبراج لليوم =====
+    function renderGrid(){
+      const host = $('#zodiacGrid');
+      host.innerHTML = '';
+      SIGNS.forEach((s, i)=>{
+        const r = buildReading(s.key, 'daily');
+        const card = document.createElement('div');
+        card.className = 'z-card col-6';
+        card.innerHTML = `
+          <div class="z-head">
+            <div class="z-ico">${s.symbol}</div>
+            <div>
+              <div class="z-name">${s.name}</div>
+              <div class="muted">${formatRange(s.range)}</div>
+            </div>
+            <div style="margin-inline-start:auto" class="tag">رقم الحظ: ${r.luckyNumber}</div>
+          </div>
+          <div class="z-snippet">${r.summary}</div>
+        `;
+        card.addEventListener('click', ()=>{
+          renderUser(s);
+          window.scrollTo({ top: $('.panel').offsetTop-20, behavior:'smooth' });
+        });
+        host.appendChild(card);
+      });
+    }
+
+    // ===== أحداث =====
+    $('#readBtn').addEventListener('click', ()=>{
+      const v = $('#birth').value;
+      if(!v){ showToast('اختر تاريخ ميلادك أولًا 📅'); return; }
+      const d = new Date(v);
+      const sign = signFromDate(d);
+      if(!sign){ showToast('تأكد من التاريخ'); return; }
+      renderUser(sign);
+    });
+    $('#saveBtn').addEventListener('click', ()=>{
+      const v = $('#birth').value; if(!v){ showToast('لا يوجد تاريخ لحفظه'); return; }
+      localStorage.setItem('birthDate', v); showToast('تم حفظ تاريخ الميلاد');
+    });
+
+    // تبويبات
+    $$('.tab').forEach(t=> t.addEventListener('click', ()=>{
+      $$('.tab').forEach(x=> x.classList.remove('active'));
+      t.classList.add('active');
+      currentMode = t.dataset.mode;
+      // إن وُجد برج مستخدم حالياً، أعد رسمه
+      const v = $('#birth').value; if(v){ const d = new Date(v); const s = signFromDate(d); renderUser(s); }
+    }));
+
+    // تحميل مبدئي
+    (function init(){
+      renderGrid();
+      const saved = localStorage.getItem('birthDate');
+      if(saved){ $('#birth').value = saved; }
+    })();
+  </script></body>
 </html>
